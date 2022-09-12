@@ -36,7 +36,20 @@ end
 
 end,false) -- "false" is the default value of toggle
 
-local Section = Tab.NewSection("Walls")
+local Section = Tab.NewSection("Main Combat")
+
+local wallbang = false
+
+local killToggle = Section.NewToggle("Wallbang",function(bool)
+if wallbang then
+wellbang = false
+else
+	wallbang = true
+end
+
+end,false) -- "false" is the default value of toggle
+
+local Section = Tab.NewSection("Visuals")
 local walls = false
 
 local wallToggle = Section.NewToggle("Enabled",function(bool)
@@ -46,6 +59,14 @@ else
 	walls = true
 end
 end,false)
+-----------------
+
+
+
+
+
+
+
 
 game:GetService("UserInputService").InputBegan:Connect(function(i)
 if i.KeyCode == Enum.KeyCode.RightAlt and kill then
@@ -74,7 +95,7 @@ end)
 game["Run Service"].RenderStepped:Connect(function()
 	if kill and killLooped then
 		if killALL then
-			print("E")
+		--	print("E")
 local ohString1 = "T"
 
 game:GetService("ReplicatedStorage").Events.JoinTeam:FireServer(ohString1)
@@ -83,7 +104,7 @@ for _, i in pairs(game.Players:GetChildren()) do
 	if workspace:FindFirstChild(i.Name) and i.Team ~= game.Players.LocalPlayer.Team then
 		local ohInstance1 = workspace:FindFirstChild(i.Name).Head
 		local ohVector32 = ohInstance1.Position
-		local ohString3 = "AWP"
+		local ohString3 = "Deagle"
 		local ohNumber4 = 4096
 		local ohInstance5 = game.Players.LocalPlayer.Character.Gun --[[ PARENTED TO NIL OR DESTROYED ]]
 		local ohNil6 = nil
@@ -146,11 +167,98 @@ wait(1)
 	end
 end
 	end)
+	------------------
+
 local Section = Tab.NewSection("Misc")
 local SpawnButton = Section.NewButton("Load Character",function()
 game.ReplicatedStorage.Events.Spawnme:FireServer()
 end)
 
+local avk = true
+local avkt = Section.NewToggle("Anti Vote-kick",function(bool)
+if avk then
+avk = false
+else
+	avk = true
+end
+end,true)
+
+local insdf = false
+local df = Section.NewToggle("Instadefuse",function(bool)
+if insdf then
+insdf = false
+else
+	insdf = true
+end
+end,false)
+
+local antidie = false
+local antidiet = Section.NewToggle("Anti-Death",function(bool)
+if antidie then
+antidie = false
+else
+	antidie = true
+end
+end,false)
+
+local Section = Tab.NewSection("Trolling (Sounds)")
+local SpawnButton = Section.NewButton("Gunshot Sounds",function()
+for _, i in pairs(workspace:GetChildren()) do
+	if game.Players:GetPlayerFromCharacter(i) then
+			if i:FindFirstChild("Gun") then
+				for _, i in pairs(i.Gun:GetChildren()) do
+					if i:IsA("Sound") then
+						i:Play()
+					end
+				end
+			end
+		end
+end
+end)
+local SpawnButton = Section.NewButton("Play all Sounds in Sounds Folder",function()
+	for _,i in pairs(workspace.Sounds:GetChildren()) do
+		i:Play()
+	end
+end)
+
+local SpawnButton = Section.NewButton("TTT Round Start Sound",function()
+workspace.RoundStart:Play()
+end)
+
+local SpawnButton = Section.NewButton("TTT Round End Sound",function()
+workspace.RoundEnd:Play()
+end)
+local SpawnButton = Section.NewButton("Old Hostage Rescued Sound",function()
+workspace.Sounds.Rescue:Play()
+end)
+local SpawnButton = Section.NewButton("Plant Sound",function()
+workspace.Sounds.Arm:Play()
+end)
+
+local SpawnButton = Section.NewButton("Defuse Sound",function()
+workspace.Sounds.Defuse:Play()
+end)
+
+local SpawnButton = Section.NewButton("CT Win Sound",function()
+workspace.Sounds.CT:Play()
+end)
+
+local SpawnButton = Section.NewButton("T Win Sound",function()
+workspace.Sounds.T:Play()
+end)
+
+local SpawnButton = Section.NewButton("C4 Beep (requires bomb planted)",function()
+workspace.C4.Handle.Beep:Play()
+end)
+
+local SpawnButton = Section.NewButton("Becky",function()
+workspace.Sounds.Becky:Play()
+end)
+
+local SpawnButton = Section.NewButton("Start Round Click",function()
+workspace.Sounds.Beep:Play()
+end)
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   --[[
     hey skid lookin at mah fuckin script, i skidded this too:
@@ -196,6 +304,7 @@ local lp = players.LocalPlayer
 --<<<<<<<
 
 game:GetService('RunService').RenderStepped:Connect(function()
+--print(avk)
 	-- Running function every frame
 	for _, player in pairs(players:GetPlayers()) do
 		-- Getting all the players
@@ -312,4 +421,104 @@ game:GetService('RunService').RenderStepped:Connect(function()
 			end
 		end
 	end
+end)
+
+game.ReplicatedStorage.Events.SendMsg.OnClientEvent:Connect(function(message)
+	if avk == true then
+		local msg = string.split(message, " ")
+		
+		if game.Players:FindFirstChild(msg[1]) and msg[7] == "1" and msg[12] == game.Players.LocalPlayer.Name then
+			game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, game.Players.LocalPlayer)
+		end
+	end
+end)
+
+local LocalPlayer = game.Players.LocalPlayer
+local UserInputService = game:GetService("UserInputService")
+
+local function IsAlive(plr)
+	if plr and plr.Character and plr.Character.FindFirstChild(plr.Character, "Humanoid") and plr.Character.Humanoid.Health > 0 then
+		return true
+	end
+
+	return false
+end
+
+game:GetService("UserInputService").InputBegan:Connect(function(key, isFocused)
+	if key.UserInputType == Enum.UserInputType.MouseButton1 and UserInputService:GetFocusedTextBox() == nil then
+	elseif key.KeyCode == Enum.KeyCode.E then
+		if insdf and workspace:FindFirstChild("C4") then
+			spawn(function()
+				wait(0.25)
+				if IsAlive(LocalPlayer) and workspace:FindFirstChild("C4") and workspace.C4:FindFirstChild("Defusing") and LocalPlayer.PlayerGui.GUI.Defusal.Visible == true and workspace.C4.Defusing.Value == LocalPlayer then
+					LocalPlayer.Backpack.Defuse:FireServer(workspace.C4)
+				end
+			end)
+		end
+	end
+end)
+
+
+--LocalPlayer.Character.Humanoid.Died:Connect(function()
+--if antidie then
+--	game.ReplicatedStorage.Events.Spawnme:FireServer()
+--end
+--end)
+local curVel = 0
+--local dedebounce = true
+game["Run Service"].RenderStepped:Connect(function()
+	if IsAlive(LocalPlayer) then
+		else
+			if antidie and dedebounce then
+				game.ReplicatedStorage.Events.Spawnme:FireServer()
+			end
+	end
+	if IsAlive(LocalPlayer) then
+		LocalPlayer.Character.Humanoid.StateChanged:Connect(function(state)
+			if true then
+				if UserInputService:IsKeyDown(Enum.KeyCode.Space) == false then
+					isBhopping = false
+					curVel = 1
+				elseif state == Enum.HumanoidStateType.Landed and UserInputService:IsKeyDown(Enum.KeyCode.Space) then
+					LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+				elseif state == Enum.HumanoidStateType.Jumping then
+					isBhopping = true
+					if curVel>2 then
+						curVel = 2
+					end
+					curVel = (curVel + 0.3)
+					--LocalPlayer.Character.PrimaryPart.Velocity=Vector3.new(0, 3, 0)
+				end
+			end
+		end)
+	end
+end)
+
+local dedebounce = true
+game["Run Service"].RenderStepped:Connect(function()
+	if IsAlive(LocalPlayer) then
+		else
+			if antidie and dedebounce then
+				game.ReplicatedStorage.Events.Spawnme:FireServer()
+				dedebounce = false
+				wait(0.1)
+				dedebounce = true
+			end
+	end
+end)
+
+--i love stealing from hexagon
+local oldNamecall; oldNamecall = hookmetamethod(game, "__namecall", function(self, ...)
+	local method = getnamecallmethod()
+	local callingscript = getcallingscript()
+    local args = {...}
+	
+	if wallbang then
+		if method == "FindPartOnRayWithIgnoreList" and args[2][1] == workspace.Debris then
+			if true then
+				table.insert(args[2], workspace.Map)
+			end
+		end
+	end
+	return oldNamecall(self, unpack(args))
 end)
