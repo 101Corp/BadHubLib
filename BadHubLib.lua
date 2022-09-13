@@ -1,11 +1,12 @@
+print("Welcome to BadHub: COUNTER BLOX!")
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/101Corp/Ocerium_Project_MYTHIN/main/Library.lua"))()
-local Window = Library.Main("BadHubLib","LeftAlt") -- change "LeftAlt" to key that you want will hide gui
+local Window = Library.Main("BadHubLib (CB)","LeftAlt") -- change "LeftAlt" to key that you want will hide gui
 --//tab
-local Tab = Window.NewTab("Counter Blox")
+local Tab = Window.NewTab("Kill All")
 
 
 --//section
-local Section = Tab.NewSection("Kill All")
+local Section = Tab.NewSection("Kill All Settings")
 
 local kill = false
 local killLooped = false
@@ -36,20 +37,53 @@ end
 
 end,false) -- "false" is the default value of toggle
 
-local Section = Tab.NewSection("Main Combat")
+local Tab = Window.NewTab("Combat")
+local Section = Tab.NewSection("Wallbang")
 
 local wallbang = false
 
-local killToggle = Section.NewToggle("Wallbang",function(bool)
+local killToggle = Section.NewToggle("Enabled",function(bool)
 if wallbang then
-wellbang = false
+wallbang = false
 else
 	wallbang = true
 end
 
 end,false) -- "false" is the default value of toggle
 
-local Section = Tab.NewSection("Visuals")
+local Section = Tab.NewSection("Aimbot")
+
+local aimbott = false
+
+local killToggle = Section.NewToggle("Enabled",function(bool)
+if aimbott then
+aimbott = false
+else
+	aimbott = true
+end
+
+end,false) -- "false" is the default value of toggle
+local dfov = false
+local killToggle = Section.NewToggle("Draw FOV",function(bool)
+if dfov then
+dfov = false
+else
+	dfov = true
+end
+end,false)
+
+local sm = 0
+local SliderPrecise = Section.NewSlider("Smoothing",1,255,true,function(value)
+	sm = value
+end,1)
+local fov = 80
+local SliderPrecise = Section.NewSlider("FOV",0,100,true,function(value)
+fov = value
+end,80)
+
+
+local Tab = Window.NewTab("Visuals")
+local Section = Tab.NewSection("Chams")
 local walls = false
 
 local wallToggle = Section.NewToggle("Enabled",function(bool)
@@ -59,6 +93,28 @@ else
 	walls = true
 end
 end,false)
+local Section = Tab.NewSection("Boxes")
+local boxes = false
+
+local killToggle = Section.NewToggle("Enabled",function(bool)
+if boxes then
+boxes = false
+else
+	boxes = true
+end
+
+end,false) -- "false" is the default value of toggle
+
+local hpbars = false
+
+local killToggle = Section.NewToggle("Healthbars",function(bool)
+if hpbars then
+hpbars = false
+else
+	hpbars = true
+end
+
+end,false) -- "false" is the default value of toggle
 -----------------
 
 
@@ -169,7 +225,8 @@ end
 	end)
 	------------------
 
-local Section = Tab.NewSection("Misc")
+local Tab = Window.NewTab("Misc")
+local Section = Tab.NewSection("Misc Settings")
 local SpawnButton = Section.NewButton("Load Character",function()
 game.ReplicatedStorage.Events.Spawnme:FireServer()
 end)
@@ -201,6 +258,7 @@ else
 end
 end,false)
 
+local Tab = Window.NewTab("Trolling")
 local Section = Tab.NewSection("Trolling (Sounds)")
 local SpawnButton = Section.NewButton("Gunshot Sounds",function()
 for _, i in pairs(workspace:GetChildren()) do
@@ -249,6 +307,10 @@ end)
 
 local SpawnButton = Section.NewButton("C4 Beep (requires bomb planted)",function()
 workspace.C4.Handle.Beep:Play()
+end)
+
+local SpawnButton = Section.NewButton("C4 About To Explode (requires bomb planted)",function()
+workspace.C4.Handle.Init:Play()
 end)
 
 local SpawnButton = Section.NewButton("Becky",function()
@@ -301,8 +363,95 @@ local hitboxes = {
 -->>>>>>> Variables
 local players = game:GetService('Players')
 local lp = players.LocalPlayer
---<<<<<<<
+local hds = {
 
+}
+--<<<<<<<
+            local folderesp = Instance.new("Folder", workspace.Camera)
+folderesp.Name = "FE"
+
+game["Run Service"].RenderStepped:Connect(function()
+folderesp:ClearAllChildren()
+for _, i in pairs(workspace:GetChildren()) do
+	if game.Players:GetPlayerFromCharacter(i) then
+		if game.Players:GetPlayerFromCharacter(i) == game.Players.LocalPlayer then
+			elseif walls then
+		local char = i
+		local esposition = char:WaitForChild("Head").CFrame
+			local esp = Instance.new("Part")
+			esp.CanCollide = false
+		esp.Parent = folderesp
+		esp.Size = char:WaitForChild("Head").Size
+			esp.CFrame = esposition
+			esp.Material = Enum.Material.SmoothPlastic
+			esp.Transparency = 0.5
+			esp.Color = Color3.new(1, 0.447059, 0.454902)
+			esp.Name = math.random(1,100) * math.random(1,100)
+			game.Players.LocalPlayer:GetMouse().TargetFilter = workspace.Camera
+			local realesp = Instance.new("SurfaceGui", esp)
+			local frame = Instance.new("Frame", realesp)
+			realesp.Face = Enum.NormalId.Front
+			frame.Size = UDim2.new(1, 0, 1, 0)
+		realesp.AlwaysOnTop = true
+		if game.Players:GetPlayerFromCharacter(i).Team == game.Players.LocalPlayer.Team then
+			frame.BackgroundColor3 = Color3.new(0, 1, 0)
+			else 
+			frame.BackgroundColor3 = Color3.new(1, 0, 0)
+		end
+						local realesp = Instance.new("SurfaceGui", esp)
+			local frame = Instance.new("Frame", realesp)
+			realesp.Face = Enum.NormalId.Back
+			frame.Size = UDim2.new(1, 0, 1, 0)
+			realesp.AlwaysOnTop = true
+					if game.Players:GetPlayerFromCharacter(i).Team == game.Players.LocalPlayer.Team then
+			frame.BackgroundColor3 = Color3.new(0, 1, 0)
+			else 
+			frame.BackgroundColor3 = Color3.new(1, 0, 0)
+		end
+						local realesp = Instance.new("SurfaceGui", esp)
+			local frame = Instance.new("Frame", realesp)
+			realesp.Face = Enum.NormalId.Left
+			frame.Size = UDim2.new(1, 0, 1, 0)
+			realesp.AlwaysOnTop = true
+					if game.Players:GetPlayerFromCharacter(i).Team == game.Players.LocalPlayer.Team then
+			frame.BackgroundColor3 = Color3.new(0, 1, 0)
+			else 
+			frame.BackgroundColor3 = Color3.new(1, 0, 0)
+		end
+						local realesp = Instance.new("SurfaceGui", esp)
+			local frame = Instance.new("Frame", realesp)
+			realesp.Face = Enum.NormalId.Right
+			frame.Size = UDim2.new(1, 0, 1, 0)
+		realesp.AlwaysOnTop = true
+				if game.Players:GetPlayerFromCharacter(i).Team == game.Players.LocalPlayer.Team then
+			frame.BackgroundColor3 = Color3.new(0, 1, 0)
+			else 
+			frame.BackgroundColor3 = Color3.new(1, 0, 0)
+		end
+						local realesp = Instance.new("SurfaceGui", esp)
+			local frame = Instance.new("Frame", realesp)
+			realesp.Face = Enum.NormalId.Top
+			frame.Size = UDim2.new(1, 0, 1, 0)
+		realesp.AlwaysOnTop = true
+				if game.Players:GetPlayerFromCharacter(i).Team == game.Players.LocalPlayer.Team then
+			frame.BackgroundColor3 = Color3.new(0, 1, 0)
+			else 
+			frame.BackgroundColor3 = Color3.new(1, 0, 0)
+		end
+						local realesp = Instance.new("SurfaceGui", esp)
+			local frame = Instance.new("Frame", realesp)
+			realesp.Face = Enum.NormalId.Bottom
+			frame.Size = UDim2.new(1, 0, 1, 0)
+		realesp.AlwaysOnTop = true
+				if game.Players:GetPlayerFromCharacter(i).Team == game.Players.LocalPlayer.Team then
+			frame.BackgroundColor3 = Color3.new(0, 1, 0)
+			else 
+			frame.BackgroundColor3 = Color3.new(1, 0, 0)
+		end
+	end
+	end
+	end
+	end)               
 game:GetService('RunService').RenderStepped:Connect(function()
 --print(avk)
 	-- Running function every frame
@@ -332,6 +481,12 @@ game:GetService('RunService').RenderStepped:Connect(function()
 							-- Player is not on our team
 							if obj:FindFirstChildWhichIsA('BoxHandleAdornment') or obj:FindFirstChildWhichIsA('CylinderHandleAdornment') then
 								-- Making sure he has chams
+									if walls then
+									else
+										for _,i in pairs(hds) do
+											i:Destroy()
+										end
+								end
 								for _, handle in pairs(obj:GetChildren()) do
 									-- Getting all objects in the character part
 									if handle:IsA('BoxHandleAdornment') or handle:IsA('CylinderHandleAdornment') and walls then
@@ -340,6 +495,10 @@ game:GetService('RunService').RenderStepped:Connect(function()
 											handle.Transparency = 0.5 -- Making it visible
 										else
 											handle.Transparency = 0.75 -- Making it visible
+										end
+										if walls then
+										else
+											handle.Transparency = 1
 										end
 									end
 								end
@@ -380,40 +539,37 @@ game:GetService('RunService').RenderStepped:Connect(function()
 							handle2.AlwaysOnTop = true
 							handle2.Parent = obj
 							handle2.Name = 'ok75'
+										if walls then
+										else
+											handle.Transparency = 1
+											handle2.Transparency = 1
+										end
 							--<<<<<<<
 						elseif hitboxes[obj.Name] and hitboxes[obj.Name] == 'Cylinder' and walls then
 							-- Checking for Head
 							-->>>>>>> Creating a rotated part cause of roblox's wierd Adornment system
-							local part = Instance.new('Part',obj)
-							part.Size = Vector3.new(0.01,0.01,0.01)
-							part.Position = obj.Position
-							part.Transparency = 1
-							part.Name = 'Fixed'
-							part.Orientation = Vector3.new(90, 0, 0)
-							local weld = Instance.new('WeldConstraint',obj)
-							weld.Part0 = obj
-							weld.Part1 = part
-							--<<<<<<<
-							-->>>>>>> Adding chams
-							local handle = Instance.new('CylinderHandleAdornment',obj)
-							handle.Height = 1.25
-							handle.Radius = 0.65
+	local handle = Instance.new('CylinderHandleAdornment',obj)
+							handle.Size = obj.Size
 							handle.ZIndex = 2
 							handle.Color3 = color1
 							handle.Transparency = 0.75
-							handle.Adornee = part
+							handle.Adornee = obj
 							handle.AlwaysOnTop = true
 							handle.Parent = obj
 							handle.Name = 'ok75'
 							local handle2 = Instance.new('CylinderHandleAdornment',obj)
-							handle2.Height = 1.3
-							handle2.Radius = 0.7
+							handle2.Size = obj.Size + Vector3.new(0.05,0.05,0.05)
 							handle2.Color3 = color2
 							handle2.Transparency = 0.5
-							handle2.Adornee = part
+							handle2.Adornee = obj
 							handle2.AlwaysOnTop = true
 							handle2.Parent = obj
 							handle2.Name = 'ok75'
+										if walls then
+										else
+											handle.Transparency = 1
+											handle2.Transparency = 1
+										end
 							--<<<<<<<
 						end
 					end
@@ -501,7 +657,7 @@ game["Run Service"].RenderStepped:Connect(function()
 			if antidie and dedebounce then
 				game.ReplicatedStorage.Events.Spawnme:FireServer()
 				dedebounce = false
-				wait(0.1)
+				wait(0.3)
 				dedebounce = true
 			end
 	end
@@ -522,3 +678,220 @@ local oldNamecall; oldNamecall = hookmetamethod(game, "__namecall", function(sel
 	end
 	return oldNamecall(self, unpack(args))
 end)
+
+local dwCamera = workspace.CurrentCamera
+local dwRunService = game:GetService("RunService")
+local dwUIS = game:GetService("UserInputService")
+local dwEntities = game:GetService("Players")
+local dwLocalPlayer = dwEntities.LocalPlayer
+local dwMouse = dwLocalPlayer:GetMouse()
+
+local settings = {
+	Aimbot = true,
+	Aiming = false,
+	Aimbot_AimPart = "Head",
+	Aimbot_TeamCheck = true,
+	Aimbot_Draw_FOV = dfov,
+	Aimbot_FOV_Radius = fov,
+	Aimbot_FOV_Color = Color3.fromRGB(255,255,255)
+}
+
+local fovcircle = Drawing.new("Circle")
+fovcircle.Color = settings.Aimbot_FOV_Color
+fovcircle.Thickness = 2
+fovcircle.Filled = false
+fovcircle.Transparency = 1
+
+fovcircle.Position = Vector2.new(dwMouse.X-settings.Aimbot_FOV_Radius,dwMouse.Y-settings.Aimbot_FOV_Radius)
+local cntr = 0
+dwUIS.InputBegan:Connect(function(i)
+	if i.UserInputType == Enum.UserInputType.MouseButton2 then
+		settings.Aiming = true
+	end
+end)
+
+dwLocalPlayer:GetMouse().Button2Down:Connect(function()
+	cntr = 0
+end)
+
+dwUIS.InputEnded:Connect(function(i)
+	if i.UserInputType == Enum.UserInputType.MouseButton2 then
+		settings.Aiming = false
+	end
+end)
+
+dwRunService.RenderStepped:Connect(function()
+fovcircle.Position = dwUIS:GetMouseLocation()
+settings = {
+	Aimbot = true,
+	Aiming = settings.Aiming,
+	Aimbot_AimPart = "Head",
+	Aimbot_TeamCheck = true,
+	Aimbot_Draw_FOV = dfov,
+	Aimbot_FOV_Radius = math.round(fov),
+	Aimbot_FOV_Color = Color3.fromRGB(255,255,255)
+}
+fovcircle.Visible = settings.Aimbot_Draw_FOV
+fovcircle.Radius = settings.Aimbot_FOV_Radius
+if settings.Aiming == true then
+	settings.Aiming = aimbott
+end
+	local dist = math.huge
+	local closest_char = nil
+
+	if settings.Aiming then
+
+		for i,v in next, dwEntities:GetChildren() do 
+
+			if v ~= dwLocalPlayer and
+				v.Character and
+				v.Character:FindFirstChild("HumanoidRootPart") and
+				v.Character:FindFirstChild("Humanoid") and
+				v.Character:FindFirstChild("Humanoid").Health > 0 then
+
+				if settings.Aimbot_TeamCheck == true and
+					v.Team ~= dwLocalPlayer.Team or
+					settings.Aimbot_TeamCheck == false then
+
+					local char = v.Character
+					local char_part_pos, is_onscreen = dwCamera:WorldToViewportPoint(char[settings.Aimbot_AimPart].Position)
+
+					if is_onscreen then
+
+						local mag = (Vector2.new(dwMouse.X, dwMouse.Y) - Vector2.new(char_part_pos.X, char_part_pos.Y)).Magnitude
+
+						if mag < dist and mag < settings.Aimbot_FOV_Radius then
+
+							dist = mag
+							closest_char = char
+
+						end
+					end
+				end
+			end
+		end
+		local tween
+		local closest
+		if closest_char ~= nil and
+			closest_char:FindFirstChild("HumanoidRootPart") and
+			closest_char:FindFirstChild("Humanoid") and
+			closest_char:FindFirstChild("Humanoid").Health > 0 then
+			if settings.Aiming then
+				cntr+=0.2/sm
+			else
+				cntr=0
+			end
+			if not closest == closest_char then
+				cntr = 0
+			end
+			closest = closest_char
+			workspace.Camera.CFrame = workspace.Camera.CFrame:Lerp(CFrame.new(dwCamera.CFrame.Position, closest_char[settings.Aimbot_AimPart].Position),cntr)
+			if cntr > 1 then
+				cntr = 1
+			end
+			--game.TweenService:Create(dwCamera, TweenInfo.new(0.45,Enum.EasingStyle.Linear),{CFrame = CFrame.new(dwCamera.CFrame.Position, closest_char[settings.Aimbot_AimPart].Position)}):Play()
+		else
+			cntr = 0
+		end
+		if workspace.Camera:FindFirstChild("Arms") then
+			workspace.Camera.Arms.PrimaryPart.CFrame = workspace.Camera.CFrame
+		end
+	end
+end)
+
+--
+local lplr = game.Players.LocalPlayer
+local camera = game:GetService("Workspace").CurrentCamera
+local CurrentCamera = workspace.CurrentCamera
+local worldToViewportPoint = CurrentCamera.worldToViewportPoint
+
+local HeadOff = Vector3.new(0, 0.5, 0)
+local LegOff = Vector3.new(0,3,0)
+
+for i,v in pairs(game.Players:GetChildren()) do
+	local BoxOutline = Drawing.new("Square")
+	BoxOutline.Visible = false
+	BoxOutline.Color = Color3.new(0,0,0)
+	BoxOutline.Thickness = 3
+	BoxOutline.Transparency = 1
+	BoxOutline.Filled = false
+
+	local Box = Drawing.new("Square")
+	Box.Visible = false
+	Box.Color = Color3.new(1,1,1)
+	Box.Thickness = 1
+	Box.Transparency = 1
+	Box.Filled = false
+
+	local HealthBarOutline = Drawing.new("Square")
+	HealthBarOutline.Thickness = 3
+	HealthBarOutline.Filled = false
+	HealthBarOutline.Color = Color3.new(0,0,0)
+	HealthBarOutline.Transparency = 1
+	HealthBarOutline.Visible = false
+
+	local HealthBar = Drawing.new("Square")
+	HealthBar.Thickness = 1
+	HealthBar.Filled = false
+	HealthBar.Transparency = 1
+	HealthBar.Visible = false
+
+function boxesp()
+		game:GetService("RunService").RenderStepped:Connect(function()
+			if v.Character ~= nil and v.Character:FindFirstChild("Humanoid") ~= nil and v.Character:FindFirstChild("HumanoidRootPart") ~= nil and v ~= lplr and v.Character.Humanoid.Health > 0 then
+				local Vector, onScreen = camera:worldToViewportPoint(v.Character.HumanoidRootPart.Position)
+
+				local RootPart = v.Character.HumanoidRootPart
+				local Head = v.Character.Head
+				local RootPosition, RootVis = worldToViewportPoint(CurrentCamera, RootPart.Position)
+				local HeadPosition = worldToViewportPoint(CurrentCamera, Head.Position + HeadOff)
+				local LegPosition = worldToViewportPoint(CurrentCamera, RootPart.Position - LegOff)
+
+				if onScreen then
+					BoxOutline.Size = Vector2.new(1000 / RootPosition.Z*2, HeadPosition.Y/1 - LegPosition.Y/1)
+					BoxOutline.Position = Vector2.new(RootPosition.X - BoxOutline.Size.X / 2, RootPosition.Y - BoxOutline.Size.Y / 2)
+					BoxOutline.Visible = boxes
+
+					Box.Size = Vector2.new(1000 / RootPosition.Z*2, HeadPosition.Y/1 - LegPosition.Y/1)
+					Box.Position = Vector2.new(RootPosition.X - Box.Size.X / 2, RootPosition.Y - Box.Size.Y / 2)
+					Box.Visible = boxes
+
+					HealthBarOutline.Size = Vector2.new(2, HeadPosition.Y - LegPosition.Y)
+					HealthBarOutline.Position = Vector2.new(Box.Position.X, Box.Position.Y + (1 / Vector2.new(2, (HeadPosition.Y - LegPosition.Y) / (game:GetService("Players")[v.Character.Name].Character.Humanoid["MaxHealth"] / math.clamp(game:GetService("Players")[v.Character.Name].Character.Humanoid["Health"], 0, game:GetService("Players")[v.Character.Name].Character.Humanoid.MaxHealth))).Y))
+					HealthBarOutline.Visible = hpbar
+
+					HealthBar.Size = Vector2.new(2, (HeadPosition.Y - LegPosition.Y) / (game:GetService("Players")[v.Character.Name].Character.Humanoid["MaxHealth"] / math.clamp(game:GetService("Players")[v.Character.Name].Character.Humanoid["Health"], 0, game:GetService("Players")[v.Character.Name].Character.Humanoid.MaxHealth)))
+					HealthBar.Position = Vector2.new(Box.Position.X, Box.Position.Y + (1 / Vector2.new(2, (HeadPosition.Y - LegPosition.Y) / (game:GetService("Players")[v.Character.Name].Character.Humanoid["MaxHealth"] / math.clamp(game:GetService("Players")[v.Character.Name].Character.Humanoid["Health"], 0, game:GetService("Players")[v.Character.Name].Character.Humanoid.MaxHealth))).Y))
+					HealthBar.Color = Color3.fromRGB(255 - 255 / (game:GetService("Players")[v.Character.Name].Character.Humanoid["MaxHealth"] / game:GetService("Players")[v.Character.Name].Character.Humanoid["Health"]), 255 / (game:GetService("Players")[v.Character.Name].Character.Humanoid["MaxHealth"] / game:GetService("Players")[v.Character.Name].Character.Humanoid["Health"]), 0)
+			HealthBar.Visible = hpbar
+
+					if v.TeamColor == lplr.TeamColor then
+						--- Our Team
+						BoxOutline.Visible = false
+						Box.Visible = false
+						HealthBarOutline.Visible = false
+						HealthBar.Visible = false
+					else
+						---Enemy Team
+						BoxOutline.Visible = boxes
+						Box.Visible = boxes
+						HealthBarOutline.Visible = hpbars
+						HealthBar.Visible = hpbars
+					end
+
+				else
+					BoxOutline.Visible = false
+					Box.Visible = false
+					HealthBarOutline.Visible = false
+					HealthBar.Visible = false
+				end
+			else
+				BoxOutline.Visible = false
+				Box.Visible = false
+				HealthBarOutline.Visible = false
+				HealthBar.Visible = false
+			end
+		end)
+	end
+	coroutine.wrap(boxesp)()
+end
